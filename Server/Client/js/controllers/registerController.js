@@ -8,6 +8,7 @@ app.controller('registerController', function ($scope,vraagService,$http, authSe
     
     
     $scope.register = function(){
+        console.log($scope.email + " " + $scope.paswoord);
         authService.register($scope.email,$scope.voornaam,$scope.achternaam,$scope.paswoord);
         
         
