@@ -1,0 +1,36 @@
+
+
+<!--
+{"BijVraagId":15,"VraagId":77,"Stelling":"Ja"},
+ -->
+
+
+
+
+ <div ng-repeat="bijvraag in bijvragen" class="checkbox">
+    <label>
+      <input type="checkbox"> {{bijvraag.Stelling}}
+    </label>
+  </div>
+  
+ 
+
+<canvas id="myChart" width="200" height="200"></canvas>
+
+<!--   $scope.mul.push({label:value.Antw,value:1});
+
+<ul ng-repeat="antw in mul">
+ 
+  <li>
+    {{antw.label}}: {{ antw.value }} 
+  </li>
+</ul>
+
+ -->
+
+<table class="table table-striped">
+  <thead> <tr> <th>Antwoord</th> <th>Aantal</th></thead>
+  <tr ng-repeat="antw in mul">
+      <td>{{antw.label}}</td> <td>{{antw.value}}</td>
+  </tr>
+</table>

@@ -1,0 +1,40 @@
+  <p class="text-right"><a href="#login" ng-click="logout">Log out</a></p>
+ 
+<div class="container">
+       <table class="table">
+         <thead>
+           <tr>
+               <th> Naam</th>
+           <!--    <th> Id</th> -->
+               
+               <th > Code</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr ng-repeat="les in lessen">
+               <td>{{ les.Naam }}</td>
+             <!--  <td>{{ les.Id }}</td>-->
+               <td>{{ les.Code }}</td>
+              
+               <td>
+                  <button ng-click="StartLes(les.Id)" class="btn btn-primary"> Start Les</button>
+                  <button ng-click="BewerkLes(les.Id)" class="btn btn-warning">Bewerk Les</button>                 
+                  <button ng-click="VerwijderLes(les.Id)" class="btn btn-danger">Verwijder Les</button>
+              
+              </td>
+           </tr>
+         </tbody>
+         <tfoot>
+           <tr>
+               <td colspan="3" >
+                 <div>
+                      <input class="form-control" type="text" ng-model="lesnaam" />
+                  </div></td>
+               <td>  </td>
+               <td><button class="btn btn-primary" ng-click="addLes()">Maak nieuwe les</button></td>
+             </tr>
+           </tfoot>
+</table>
+
+
+</div>

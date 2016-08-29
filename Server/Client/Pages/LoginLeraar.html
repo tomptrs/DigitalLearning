@@ -1,0 +1,24 @@
+<div ng-controller="LeraarLogInCtrl">
+
+
+
+
+<div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Log in: </h2>
+        <label for="naam" class="sr-only">Naam</label>
+        <input type="text" id="naam" class="form-control" placeholder="naam" ng-model="email" required autofocus>
+        
+         <label for="password" class="sr-only">Code</label>
+        <input type="password" id="password" class="form-control" placeholder="paswoord" ng-model="paswoord" required autofocus>
+       
+       
+        <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="login()">Log in</button>
+       
+      </form>
+
+    </div> <!-- /container -->
+
+
+</div>

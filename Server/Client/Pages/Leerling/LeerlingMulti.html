@@ -1,0 +1,18 @@
+<div ng-controller="LeerlingMultiCtrl">
+
+
+
+
+ <div ng-repeat="bijvraag in bijvragen" class="checkbox">
+    <label>
+      <input ng-model="bijvraag.selectedStuff"  ng-click="toggleSelection(bijvraag.Stelling)"  type="checkbox"> {{bijvraag.Stelling}}
+    </label>
+    
+   
+  </div>
+  
+ 
+<!-- <input type="button" ng-click="Verstuur()" class="btn btn-primary" value="Verzenden">
+-->
+
+</div>

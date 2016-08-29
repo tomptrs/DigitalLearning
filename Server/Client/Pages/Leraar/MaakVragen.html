@@ -1,0 +1,122 @@
+<div class="container">
+
+ <button value="" ng-click="dashboard()" class="btn btn-primary">Dashboard</button>
+       
+
+<h1>Maak vragen</h1>
+
+
+ <!--   
+<input class="form-control"  type="text" ng-model="antwoord">
+
+<input type="text">
+<input type="button" ng-click="Verstuur()" class="btn btn-primary" value="Maak vraag aan">
+
+-->
+ 
+ 
+ 
+ 
+ <!-- 
+ 
+ EenVraag = 
+    {
+        Stelling="",
+        TypeId=1,
+        LesId="",
+        VraagNummer="",
+        Active = false
+    };
+ -->
+ <div ng-repeat='item in vragen'>
+				
+				
+				
+				<div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Vraag</h3>
+                      </div>
+              <div class="panel-body">
+    		
+				
+				<div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">Nummer:</span>
+                  <input type="text" ng-model='item.VraagNummer' class="form-control  col-lg-2 col-md-2 col-xs-2" placeholder="vraagnummer" aria-describedby="basic-addon1">
+                </div>
+				
+				
+				<div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">Vraag:</span>
+                  <input type="text" ng-model='item.Stelling' class="form-control" width="300" placeholder="vraag" aria-describedby="basic-addon1">
+                </div>
+                
+				{{item.TypeId}}
+				
+                   <select class="form-control" id="VraagSoort" ng-model="item.TypeId" ng-change="updateMultiple(item.TypeId,$index)">
+                    <option value="1" >Open</option>
+                    <option value="3">Meerkeuze</option>
+                    <option value="2">Cloud</option>
+                    <option value="4">Teken</option>   
+                 </select>
+                 
+                 
+                 <!-- Upload a file -->
+                 
+               <!--  TODO  -->
+                 
+                 <!-- End Upload a file-->
+                 
+                 <!-- Multiple choice -->
+                 <br>
+                 {{item.multiple}}
+                <div id="multiple" ng-show="item.TypeId == 3" >
+                                 
+                 <h3>Multiple Choice</h3>
+                
+                     
+                 <div ng-repeat='item2 in item.multi'>
+                 
+                       <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">Nieuwe stelling:</span>
+                  <input type="text" ng-model='item2.Stelling' class="form-control" width="300" placeholder="nieuwe stelling" aria-describedby="basic-addon1">
+                </div>
+                 
+                  </div><!--end repeat -->
+                 
+               
+                  <button class="btn btn-success" ng-click="addStellingMultiple($index)">
+					Nieuwe Stelling
+				</button>
+                
+                    
+                 
+                 </div>
+                 <!-- END Multiple Choice -->
+     
+				<!--Elk item krijgt een index mee-->
+				<button class="btn btn-primary" ng-click="bewaar($index)">
+					Bewaar
+				</button>
+				
+				 <button class="btn btn-warning" ng-click="update($index)">
+					Update
+				</button>
+				
+				 <button class="btn btn-danger" ng-click="remove($index)">
+					Remove
+				</button>
+			
+			</div>
+			
+			 </div>
+</div>
+		
+			
+			
+
+                <button class="btn btn-success" ng-click="add()">
+					Nieuwe vraag
+				</button>
+
+
+</div>

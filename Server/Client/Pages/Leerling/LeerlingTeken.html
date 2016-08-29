@@ -1,0 +1,62 @@
+<div ng-controller="LeerlingTekenCtrl">
+
+<h1>Teken VRAAG</h1>
+
+
+    
+       <div>
+            <select class="form-control" style="width:30%" ng-model="size" ng-options="size for size in sizes" ng-click="resize()">
+                Selecteer Penseeldikte
+            </select>
+    </div>
+   
+
+    <div>
+     <!--
+       <a href='#colors_sketch' type="button" class="btn btn-default" data-tool="marker" data-color="#2E2E2E">Zwart</a>
+        <a href='#colors_sketch' type="button" class="btn btn-primary" data-tool="marker" data-color="#003366">Blauw</a>
+        <a href='#colors_sketch' type="button" class="btn btn-success" data-tool="marker" data-color="#00CC66">Groen</a>
+        <a href='#colors_sketch' type="button" class="btn btn-info" data-tool="marker" data-color="#2ECCFA">Blauw</a>
+        <a href='#colors_sketch' type="button" class="btn btn-warning" data-tool="marker" data-color="#FF9933">Geel</a>
+        <a href='#colors_sketch' type="button" class="btn btn-danger" data-tool="marker" data-color="#FF0000">Rood</a>
+        <a href='#colors_sketch' type="button" class="btn btn-danger" data-tool="eraser"><i class="fa fa-eraser"></i>Wissen</a>
+     -->
+     <div>
+            
+            
+              <canvas id="colors_sketch" style="width:100%;height:400px;border:1px solid black;z-index:10"></canvas>
+          
+
+            <!--Save Pictures & Clear canvas-->
+<button ng-click="BewaarPicture()" data-toggle="modal" data-target="#myModal" ng-confirm-click="Wil je de tekening verzenden?" type="button" class="btn btn-primary">Tekening versturen</button>
+<button ng-click="ClearCanvas()" ng-confirm-click="Tekening verwijderen?" type="button" class="btn btn-danger">Wissen</button>
+        </div>
+ 
+    
+    </div>
+    
+
+<!-- <input type="button" ng-click="Verstuur()" class="btn btn-primary" value="Verzenden"> -->
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Antwoord</h4>
+      </div>
+      <div class="modal-body">
+        <p>Je antwoord is verstuurd!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>

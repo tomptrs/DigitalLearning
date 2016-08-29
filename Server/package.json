@@ -1,0 +1,22 @@
+{
+  "name": "tomp",
+  "version": "1.0.0",
+  "description": "digitaal leerplatform",
+  "main": "gebruikers.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "router": "^1.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "digital",
+    "leerplatform"
+  ],
+  "author": "Tom Peeters",
+  "license": "ISC"
+}
