@@ -649,7 +649,7 @@ router.post('/BewaarTekeningBijVraag', function (req, res) {
         connection.release();
         });
       });
-
+      return res.json({"krak":"boem"});
     });
 
 router.post("/getDrawings",function(req,res,next){
@@ -893,14 +893,14 @@ router.post("/addVraag",function(req,res){
                      
                  }
                   connection.release();
-                 return res.json({"vraag":"insert ok"});
+                 //return res.json({"vraag":"insert ok"});
              }
              }
              else{
                  console.log("insert not ok");
                  console.log(err);
                  connection.release();
-                 return res.json({"vraag":"insert nok"});
+                // return res.json({"vraag":"insert nok"});
                       }
              });
                                     
@@ -914,7 +914,7 @@ router.post("/addVraag",function(req,res){
        
        
    });
-    
+    return res.json({"krak":"boem"});
 });
 
 //addVraag
