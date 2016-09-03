@@ -155,6 +155,30 @@ router.post("/StartLes",function(req,res){
    // res.json(vragen);
 });
 
+router.post("/GetAantalVragenVanLes",function(req,res){
+            
+            console.log("GET Aantal vragen van les");
+
+            var lesId = req.body.id;
+
+            pool.getConnection(function(err,connection){
+                
+                var query = "select count(*) as aantal from vraag where LesId = " + lesId;
+                connection.query(query,function(err,rows,fields){
+                    if(!err){
+                        connection.release();
+                        return res.json({"vragen":rows});
+                    }
+                    else{
+                        connection.release();
+                        return res.json({"error":"error aantal vragen per les"});
+                    }
+                });
+           
+
+            });
+});
+
 
 ///Get alle vragen van een les , aangevraagd door de leraar bij het aanmaken van nieuwe vragen!
 router.post("/GetVragenVanLes",function(req,res){

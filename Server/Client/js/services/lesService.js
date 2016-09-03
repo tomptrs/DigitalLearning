@@ -96,6 +96,10 @@ app.factory("lesService",function($http,$interval,$rootScope){
         
         GetBijVraagVanVraag:function(vraagId){
             return $http.post("lessen/getbijvraagvanvraag",{"vraagId":vraagId});
+        },
+        
+        GetAantalVragenVanLes:function(lesId){
+             return $http.post("lessen/GetAantalVragenVanLes",{"id":lesId}) ;
         }
     };
 
