@@ -11,7 +11,6 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     $scope.activeLesCode = commonService.ActiveLes.code;
     $scope.bijvragen=[];
     var currentType="";
-    $scope.aantalVragen = 0;
     $scope.multiple = [];
     var templates =
           [     { name: 'open', url: 'Pages/Leraar/LeraarOpen.html'},
@@ -29,13 +28,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
         */
         //Volgende vraag oproepen
         $scope.DeActivateVraag($scope.vraagNummer);
-        
-        if($scope.vraagNummer < $scope.aantalVragen)
-            $scope.vraagNummer++;
-        else{
-            alert("Dit was de laatste vraag!");
-        }
-        
+        $scope.vraagNummer++;   
         GetVraag();   
         
     };
@@ -44,20 +37,21 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
         $scope.DeActivateVraag($scope.vraagNummer);
         
         $scope.vraagNummer--;
-        if($scope.vraagNummer < 1)
-            $scope.vraagNummer = 1;
         GetVraag();
     };
     
     $scope.DeActivateVraag =function(vraagnr){
         var promise = lesService.MaakVraagOnBeschikbaar(commonService.ActiveLes.id,vraagnr);
         promise.then(function(data){
-            console.log("heb vraag Inactief gemaakt");           
+            console.log("heb vraag Inactief gemaakt");
+            
         });
+       
     }
     
     $scope.MaakVraagBeschikbaar = function(){
         console.log($scope.vraagNummer);
+        
         var promise = lesService.MaakVraagBeschikbaar(commonService.ActiveLes.id,commonService.ActiveVraag.vraagnummer);
         promise.then(function(data){
             console.log("heb vraag beschikbaar gemaakt");           
@@ -287,21 +281,6 @@ var myPieChart = new Chart(ctx).Pie( $scope.mul);
         
        
         GetVraag();
-        
-        var p  = lesService.GetAantalVragenVanLes(commonService.ActiveLes.id);
-         p.then(function(data){
-/*             console.log("Aantal vragen = ?");
-             console.log(data);
-             console.log(data.data.vragen[0].aantal);
-             */
-             $scope.aantalVragen = data.data.vragen[0].aantal;
-             
-             
-         });
-                      
-        //Get aantal vragen van de les
-        
-        
        //$scope.vragen = lesService.GetVragenCurrentLes;
       /*  console.log("vraagnummer " + $scope.vraagNummer );
         var promise = lesService.GetVraagVanLes(lesService.GetCurrentLes,$scope.vraagNummer);

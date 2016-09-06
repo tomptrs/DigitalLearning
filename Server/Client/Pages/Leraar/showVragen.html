@@ -1,11 +1,10 @@
 
  
-
- 
  <h2 class="text-center"><img width="200" height="100" src="../../public/site/logo.jpg"></h2>
   <div class="container">
 
 <p>      Aantal vragen : {{aantalVragen}}  </p>
+<p>        Aantal antwoorden: {{aantalAntwoorden}} </p>
     <div class="" id="bs-example-navbar-collapse-1">
    
     <div class="table-responsive">    
@@ -16,15 +15,21 @@
   <td class="span2"><button value="MaakVraagBeschikbaar" ng-click="MaakVraagBeschikbaar()" class="btn btn-success glyphicon glyphicon-play-circle"></button></td>
   <td class="span2"><button value="MaakVraagOnBeschikbaar" ng-click="MaakVraagOnBeschikbaar()" alt="onbeschikbaar" class="btn btn-warning glyphicon glyphicon-eject"></button></td>
   <td class="span2"><button value="Toon Antwoorden" ng-click="GetAntwoorden()" class="btn btn-success glyphicon glyphicon-check"></button></td>
+  
+  <!-- <td class="span2"><button value="Toon aantal Antwoorden" ng-click="ToonAantalAntwoorden()" class="btn btn-success glyphicon glyphicon-check"></button></td> -->
+  
   <td class="span2"> <button value="Stop Interval" ng-click="StopInterval()" class="btn btn-danger glyphicon glyphicon-stop"></button></td>
+  
   <td class="span2"> <button value="Stop Les" ng-click="StopLes()" class="btn btn-danger glyphicon glyphicon-remove"></button></td>
   </tr>
+  
   <tr>
   <td class="span2">Vorige</td>
   <td class="span2">Volgende</td>
   <td class="span2">Maak vraag beschikbaar</td>  
   <td class="span2">Maak vraag onbeschikbaar</td>
    <td class="span2">Toon antwoorden</td>
+ <!--   <td class="span2">Toon # antwoorden</td>-->
     <td class="span2">Stop interval</td>
     <td class="span2">Stop les</td>
   

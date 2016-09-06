@@ -27,6 +27,8 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
         //TODO : get currentLes        
        //Get current vraag = vraag die beschikbaar is!, stuur code mee door
         promise = vraagService.IsVraagBeschikbaar(commonServiceLeerling.User.lesId,commonServiceLeerling.User.code); 
+      
+        //vraagService.IsVraagBeschikbaar(commonServiceLeerling.User.lesId,commonServiceLeerling.User.code); 
         
     }
     

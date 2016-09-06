@@ -4,6 +4,7 @@
 *
 */
 
+
 var express = require('express');
 var router = express.Router();
 var fs      = require('fs');
@@ -30,32 +31,6 @@ var pool  = mysql.createPool({
 
 
 
-//TEMP DATABASE
-vragen =[
-        {
-            nr:"1",
-            vraag:"Wat is je naam?",
-            type:"open",
-            beschikbaar:false,
-            antwoorden:[]
-        
-        },
-        {
-            nr:"2",
-            vraag:"Welk huisdier heb je?",
-            type:"cloud",
-            beschikbaar:false,
-            antwoorden:[]
-        },
-        {
-            nr:"3",
-            vraag:"Hoe oud ben je?",
-            type:"open",
-            beschikbaar:false,
-            antwoorden:[]
-        }
-    ];
-
 // middleware specific to this router
 router.use(function timeLog(req, res, next) {
     //console.log('Time: ', Date.now());
@@ -66,6 +41,8 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function (req, res) {
     res.send('lessen');
 });
+
+
 
 /// Controleer of we naar de volgende vraag mogen gaan
 router.post('/GetAlleLessen', function (req, res) {
@@ -91,26 +68,6 @@ router.post('/GetAlleLessen', function (req, res) {
          
          // connection.release();
      });
-    
-    
-   /* lessen = [
-            {
-                id: "1",
-                naam : "Les 1"
-            },
-            {
-                id: "2",
-                naam : "Les 2"
-            },
-            {
-                id: "3",
-                naam : "Les 3"
-            }
-    ];*/
-    
-  //  console.log(lessen);
-  // res.json(lessen);
-    
     
 });
 
@@ -244,48 +201,18 @@ router.post("/GetVraagVanLes",function(req,res){
             
             var vragen = rows;
             
-        /*   if (typeof rows[0] != 'undefined'){
-            
-               if(rows[0].TypeId ==3){
-                console.log("get bijvragen");
-                    console.log("in get bijvraag" + vraagId);
-                        pool.getConnection(function(err, connection) {
-    
-                    connection.query('SELECT * from bijvraag where  VraagId =' + rows[0].Id , function(err2, rows2, fields2) {
-                                // connection.end(); // Do NOT end the connection        
-                            if (!err2){
-                                    console.log(rows2);
-                                    connection.release();
-                                    // console.log('The solution is: ', rows);
-                                    return res.json({"vraag":vragen,"bijvragen":rows2}); //Send  vraag to client
-                            }
-                            else
-                                                console.log('Error while performing Query.');
-                                connection.release();
-                            });
-                        
-         
-        //  connection.release();
-     }); 
-           
-                
-                
-            }
-               else{
-                 connection.release();
-                return res.json({"vraag":rows}); //Send  vraag to client
-               }
-           }*/
-        //    else{
+      
                 connection.release();
                 return res.json({"vraag":rows}); //Send  vraag to client
-        //    }
+       
         }
-        else
+        else{
             console.log('Error while performing Query.');
-         connection.release();
+            connection.release();
+            return res.json({"krak":"boem"});
+        }
         });
-         
+                    
         //  connection.release();
      });
     
@@ -305,16 +232,18 @@ function GetBijvragenVanVraag(vraagId){
            // console.log('The solution is: ', rows);
             return rows; 
         }
-        else
+        else{
             console.log('Error while performing Query.');
             connection.release();
+                    return res.json({"krak":"boem"});
+        }
         });
          
         //  connection.release();
      }); 
 }
 
-/* Hier komt de leerling de bijvragen op halen!!!*/
+/// Hier komt de leerling de bijvragen op halen!!!
 router.post("/getbijvraagvanvraag",function(req,res){
     
     console.log("get bijvragen");
@@ -368,12 +297,14 @@ router.post("/MaakVraagBeschikbaar",function(req,res){
             else{
                 console.log('Error while performing select (get active vraag) Query.');
                 connection.release();
+                return res.json({});
             }
         });
         }
         else{
             console.log('Error while performing Update (maak vraag active) Query.');
             connection.release();
+            return res.json({});
         }
         
         });
@@ -401,19 +332,23 @@ router.post("/MaakVraagOnBeschikbaar",function(req,res){
         if (!err){
            // console.log('The solution is: ', rows);
             
-            connection.release();
-            
+            connection.release();            
             return res.json({"vraag":rows}); //Send active les to client
            
         }
         else
             console.log('Error while performing select (get active vraag) Query.');
+                         return res.json({"test":"test"});
         });
         }
-        else
+        else{
             console.log('Error while performing Update (maak vraag active) Query.');
+                     return res.json({"test":"test"});
+        }
         });
      });
+    
+   // return res.json({"onbeschikbaar":"onbeschikbaar"});
     
 });
 
@@ -442,36 +377,7 @@ router.post('/IsVraagBeschikbaar', function (req, res) {
                     console.log(rows[0]);
                     //testen of het multiple choice vraag is, indien ja gaan we bijvragen afhalen
                   
-                 /*   if(rows[0].TypeId == 3){
-                        
-                        var vragen = rows;
-                         
-                        pool.getConnection(function(err2, connection2) {
-    
-                        connection2.query('SELECT * from bijvraag where  VraagId =' + rows[0].Id , function(err2, rows2, fields2) {
-                                // connection.end(); // Do NOT end the connection        
-                            if (!err2){
-                                    console.log("Ik stuur ook bijvragen naar de client!!");
-                                    connection2.release();                                 
-                                    
-                                return res.json({"vraag":vragen,"bijvragen":rows2}); //Send  vraag to client
-                            }
-                            else
-                                console.log('Error while performing Query.');
-                                connection2.release();
-                                return res.json({"vraag":null});
-                           
-                            });
-                        }); 
-                      
-                    } // END IF TEST TYPEID==3
-                    */
-                                        
-                  // else// Elke andere vragen doorsturen
-                   //     {
-                            connection.release();
-                            return res.json({"vraag":rows}); //Send  vraag to client
-                     //   }
+               
                 }
                 else{
                      connection.release();
@@ -508,30 +414,6 @@ router.post('/IsVraagBeschikbaar', function (req, res) {
     
 });
 
-/*router.post("/getbijvraagvanvraag",function(req,res){
-    
-    var Id = req.body.Id;
-    console.log("get bijvraagjes");
-    console.log(Id);
-     pool.getConnection(function(err2, connection2) {
-    
-                        connection2.query('SELECT * from bijvraag where  VraagId =' + Id , function(err2, rows2, fields2) {
-                                // connection.end(); // Do NOT end the connection        
-                            if (!err2){
-                                    console.log("Ik stuur ook bijvragen naar de client!!");
-                                    connection2.release();                                 
-                                    
-                                return res.json({"bijvragen":rows2}); //Send  vraag to client
-                            }
-                            else
-                                console.log('Error while performing Query.');
-                                connection2.release();
-                                return res.json({"vraag":null});
-                           
-                            });
-                        }); 
-});*/
-
 ///Get beschikbare vraag van de les (altijd laatst beschikbare vraag) 
 router.post('/GetVraagVanLesBeschikbaar', function (req, res) {
     console.log("Hier haal ik de vraag op..");
@@ -563,84 +445,26 @@ router.post('/SaveAntwoord', function (req, res) {
         connection.release();
         });
       });
-    
-  /*  console.log("save antwoord");   
-    var vraagId = req.body.vraagId;
-    var antwoord = req.body.antwoord;
-    
-    for(var i=0; i< vragen.length; i++){
-        if(vragen[i].nr == vraagId){
-            //save antwoord
-            console.log("save antwoord :" + antwoord + " in les :" + req.body.lesId + "in vraag: " + req.body.vraagId);
-            vragen[i].antwoorden.push(antwoord);
-            console.log(vragen[i].antwoorden[0]);//toon gewoon het eerste antwoord
-        }
-    }*/
-    res.send("Ok");
+
+     return res.json({"data":"ok"});
 });
 
-router.post('/SaveTekeningBijVraag', function (req, res) {
-/*
-"lesId":lesId,"vraagId":vraagId, "afb":vraagObj
-*/
-    console.log("saving Tekening bij vraag..");
-    
-    var lesId = req.body.lesId;
-    var vraagId = req.body.vraagId;
-    var afb = req.body.afb;
-    console.log(lesId + " " + vraagId + " " + afb);
-    
-      pool.getConnection(function(err, connection) {
-        
-         console.log("save antwoord")
-        var sql = "INSERT INTO antwoord(afbeelding, VraagId, LesId) VALUES ('"+ afb+"','"+ vraagId +"','"+ lesId +"')";
-         connection.query(sql , function(err, rows, fields) {
-       // connection.end(); // Do NOT end the connection        
-        connection.release();
-        });
-      });
-    
-});
-
-//BewaarTekeningBijVraag
-
-router.post('/BewaarTekeningBijVraag', function (req, res) {
-/*
-"lesId":lesId,"vraagId":vraagId, "afb":vraagObj
-*/
-    console.log("saving Tekening bij vraag..");
-    
-    var lesId = req.body.lesId;
-    var vraagId = req.body.vraagId;
-    var afb = req.body.afb;
-    console.log(lesId + " " + vraagId + " " + afb);
-    
-    //Save image as in Directory + save image in database!
-      pool.getConnection(function(err, connection) {
-        
-         console.log("save antwoord")
-        var sql = "INSERT INTO antwoord(afbeelding, VraagId, LesId) VALUES ('"+ afb+"','"+ vraagId +"','"+ lesId +"')";
-         connection.query(sql , function(err, rows, fields) {
-       // connection.end(); // Do NOT end the connection        
-        connection.release();
-        });
-      });
-    
-});
-
- //Add Tekening Antwoord
+///Add Tekening Antwoord
+///Deze tekening saver wordt nu gebruikt!!!
   router.post('/addDrawing', function(req, res, next) {
            
-         console.log("saving Tekening bij vraag A NEW WAY!!..");
+     console.log("saving Tekening bij vraag A NEW WAY!!..");
     
+      console.log(req);
+      
+      
+      console.log("res");
+      console.log(res);
+      console.log(next);
         var lesId = req.body.lesId;
         var vraagId = req.body.vraagId;
         var afb = req.body.afb;
-       // console.log(lesId + " " + vraagId + " " + afb);
-    
-            //random getal om afbeelding in op te slaan..
-            
-            //Stuur les door en maak een directory voor de afbeelding
+      
             var dir = './Client/public/pics/'+lesId;
 
                 if (!fs.existsSync(dir)){
@@ -649,15 +473,14 @@ router.post('/BewaarTekeningBijVraag', function (req, res) {
       
       console.log(dir);
            
-            var base64Data = req.body.afb.replace(/^data:image\/png;base64,/, "");
-      console.log("SAVING IMAGE!!");
-     // console.log(base64Data);
+       var base64Data = req.body.afb.replace(/^data:image\/png;base64,/, "");
+    
       
         var r = Math.round(Math.random()*10000);
          console.log(r);
 
             fs.writeFile(dir+"/"+r + ".png", base64Data, 'base64', function(err) {
-                console.log("in AddDrawing functino");
+               
                 console.log(err);
                 });
       
@@ -666,44 +489,18 @@ router.post('/BewaarTekeningBijVraag', function (req, res) {
       console.log(imgSaved);
        pool.getConnection(function(err, connection) {
         
-         console.log("save antwoord a NEW WAY")
+       
         var sql = "INSERT INTO antwoord(afbeelding, VraagId, LesId) VALUES ('"+ imgSaved+"','"+ vraagId +"','"+ lesId +"')";
          connection.query(sql , function(err, rows, fields) {
-       // connection.end(); // Do NOT end the connection        
+            
         connection.release();
         });
       });
-      return res.json({"krak":"boem"});
+
+      
+       return res.json({"data":"ok"});
     });
-
-router.post("/getDrawings",function(req,res,next){
     
-     var lesId = req.body.lesId;
-     var vraagId = req.body.vraagId;
-    
-       pool.getConnection(function(err, connection) {
-    
-    connection.query('SELECT * from antwoord where LesId =' + lesId + ' and VraagId = ' + vraagId , function(err, rows, fields) {
-       // connection.end(); // Do NOT end the connection        
-        if (!err){
-            
-             connection.release();
-           // console.log('The solution is: ', rows);
-            return res.json({"vraag":rows}); //Send  vraag to client
-           
-        }
-        else
-            console.log('Error while performing Query.');
-         connection.release();
-        });
-         
-        //  connection.release();
-     });
-    
-    
-});
-
-
 router.post("/GetAntwoorden",function(req,res){
    
     
@@ -719,47 +516,27 @@ router.post("/GetAntwoorden",function(req,res){
                  connection.release();
                 return res.json({"antwoorden":rows});
              }
-         else
+         else{
             connection.release();
             console.log('Error while performing Update (maak vraag active) Query.');
+            return res.json({"data":err});
+         }
             });
      });
-    
-    
-    
-  /*  console.log("Get Antwoorden");
-    var lesId = req.body.lesId;
-    var vraagId = req.body.vraagId;
-    console.log("Get antwoorden van lesId :" + lesId +" + vraagId" + vraagId);
-    var antwoorden = [];
-    for(var i = 0; i<vragen.length; i++){
-        if(vragen[i].nr == vraagId)
-            {
-                console.log(vragen[i].antwoorden.length);
-                //TODO performanter maken: nu ga je telkens alle antwoorden terug doorsturen!!
-                for(var j=0;j<vragen[i].antwoorden.length;j++){
-                    antwoorden.push(vragen[i].antwoorden[j]);
-                }
-            }
-    }
-    console.log(antwoorden);
-    res.json(antwoorden);*/
 });
-
-
-   
+    
 router.post("/ToonAantalAntwoorden",function(req,res){
    
     
     //todo get from database 
     var lesId = req.body.lesId;
     var vraagnr = req.body.vraagnr;
-  //  console.log(lesId + " " + vraagnr);
+    console.log(lesId + " " + vraagnr);
      pool.getConnection(function(err, connection) {
          
-     connection.query("select count(*) as aantal from antwoord where LesId = " + lesId + " and VraagId = " + vraagnr , function(err,rows,fields){
+     connection.query("select count(*) from antwoord where LesId = " + lesId + " and VraagId = " + vraagnr , function(err,rows,fields){
              if (!err){
-                // console.log(rows);
+                 console.log(rows);
                  connection.release();
                 return res.json({"antwoorden":rows});
              }
@@ -822,37 +599,9 @@ router.post("/addLes",function(req,res){
             }
 });
      });
-});
+}); //END
+    
 
-/*
-router.post("addMultiVraag",function(req,res){
-     var lesId = req.body.lesId;
-        var obj = req.body.vraag;
-   
-    
-    
-      pool.getConnection(function(err, connection) {
-          
-           //TODO: Ik moet de VraagID bewaren!
-        if(obj.multi != null){
-                     for(var i=0;i<obj.multi.length;i++){
-                     var sql2 = "insert into bijvraag(VraagId,Stelling) VALUES('"+obj.VraagNummer+"','"+obj.multi[i].Stelling+"')";
-                     connection.query(sql2,function(err,rows,fields){
-                         if(!err){
-                             console.log("insert multi ok");
-                         }
-                     });
-                    }
-                   }// end if mulit != null
-          
-          
-          connection.release();
-          return res.json({"vraag":"insert bijvraag ok"});
-          
-      });
-    
-});
-*/
 
 //addVraag
 router.post("/addVraag",function(req,res){
@@ -862,13 +611,6 @@ router.post("/addVraag",function(req,res){
         var obj = req.body.vraag;
         var vraagErIn = false;
    
-   
-    /*
-    obj.Stelling
-    obj.TypeId
-    obj.VraagNummer
-    */
-  
     console.log(obj.Stelling);
 
       console.log(obj);
@@ -884,8 +626,6 @@ router.post("/addVraag",function(req,res){
             connection.query(sqlCheck, function(err,rows,fields){
                        
                 
-                
-                //HIER IS IETS MISS!!!!!
                              console.log(rows);
                 
                                 if(rows.length > 0){
@@ -942,14 +682,14 @@ router.post("/addVraag",function(req,res){
                      
                  }
                   connection.release();
-                 //return res.json({"vraag":"insert ok"});
+                 return res.json({"vraag":"insert ok"});
              }
              }
              else{
                  console.log("insert not ok");
                  console.log(err);
                  connection.release();
-                // return res.json({"vraag":"insert nok"});
+                 return res.json({"vraag":"insert nok"});
                       }
              });
                                     
@@ -964,7 +704,8 @@ router.post("/addVraag",function(req,res){
        
    });
     return res.json({"krak":"boem"});
-});
+});///End add vraag
+    
 
 //addVraag
 router.post("/updateVraag",function(req,res){
@@ -973,18 +714,12 @@ router.post("/updateVraag",function(req,res){
         var lesId = req.body.lesId;
         var obj = req.body.vraag;
    
-    /*
-    obj.Stelling
-    obj.TypeId
-    obj.VraagNummer
-    */
+   
     console.log(obj.Stelling);
     console.log(lesId + " " + obj );
         pool.getConnection(function(err, connection) {
             
-            /*
-            UPDATE `vraag` SET `Id`=[value-1],`Stelling`=[value-2],`TypeId`=[value-3],`LesId`=[value-4],`VraagNummer`=[value-5],`Active`=[value-6] WHERE 1
-            */
+          
         console.log(obj.Stelling);
         var sql = "update vraag set Stelling=' " + obj.Stelling + "', TypeId='" + obj.TypeId + "' where lesId=" + lesId + " and VraagNummer = " + obj.VraagNummer;
       
@@ -1006,7 +741,7 @@ router.post("/updateVraag",function(req,res){
        
    });
     
-});
+}); ///end
 
 
 router.post("/removeLes",function(req,res){
@@ -1067,31 +802,33 @@ router.post("/StopLes",function(req,res){
              if (!err){
                  console.log("delete ok");
                   connection.release();
-                 return res.json({"delete":"ok"});
+               //  return res.json({"delete":"ok"});
              }
              else{
                  console.log("delete not ok");
                  console.log(err);
                  connection.release();
-                 return res.json({"delete":"nok"});
+                 //return res.json({"delete":"nok"});
                       }
      });
                 
-                /*
-                Controleer of er een directory met afbeeldingen is, zoja verwijderen!                
-                */
+               
                 
                 
-                
-                 var dir = './Client/public/pics/'+lesId;
+       
+       
+   });
+    
+     var dir = './Client/public/pics/'+lesId;
             fse.remove(dir, function (err) {
                 if (err) return console.error(err)
  
                     console.log('success removing '+ dir +' !');
                 });
-       
-       
-   });
+    
+    return res.json({"delete":"delete"});
 
 });
+    
+    
 module.exports = router;

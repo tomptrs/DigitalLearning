@@ -3,7 +3,7 @@ app.controller('LeerlingTekenCtrl', function ($scope,lesService,vraagService) {
     $scope.antwoord = "";
     $scope.sizes = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
     $scope.size = 5;
- 
+ /*
     $scope.Verstuur = function(){
        // if(currentVraag.vraagId != null)
       //  console.log("verstuur antwoord :" + vraagService.currentVraagId);
@@ -40,7 +40,7 @@ app.controller('LeerlingTekenCtrl', function ($scope,lesService,vraagService) {
         //Send to mysql database!!
        
     };
-    
+    */
      $scope.BewaarPicture = function () {
            console.log("try to save the pic");
             var canvas = document.getElementById('colors_sketch');
@@ -52,8 +52,8 @@ app.controller('LeerlingTekenCtrl', function ($scope,lesService,vraagService) {
 
                   //DOE EEN POST NAAR NODEJS!
          //console.log("lesId" + vraagService.currentLesId + " l" vraagService.currentLesId)
-         var promise = lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagId,AnswerImageString);
-
+       //  var promise = lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagId,AnswerImageString);
+lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagId,AnswerImageString);
          //TODO : promise succes opvangen en canvas clearen!
          
 /*         $http

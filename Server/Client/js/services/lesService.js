@@ -55,7 +55,7 @@ app.factory("lesService",function($http,$interval,$rootScope){
                         
                  });
                  
-            },2000);
+            },4000);
         },
         
          StopInterval:function(interval){
@@ -100,7 +100,22 @@ app.factory("lesService",function($http,$interval,$rootScope){
         
         GetAantalVragenVanLes:function(lesId){
              return $http.post("lessen/GetAantalVragenVanLes",{"id":lesId}) ;
+        },
+        ToonAantalAntwoorden:function(lesId,vraagId){
+             //Start POLLING VOOR ANTWOORDEN
+             return $interval(function(){
+                
+                 $http.post("lessen/ToonAantalAntwoorden",{"lesId":lesId, "vraagnr":vraagId})
+                     
+                     .then(function(data){                      
+                        var obj = data.data;
+                        $rootScope.$broadcast('ToonAantalAntwoorden',obj);                        
+                 });
+                 
+            },2000);
         }
+        
+       
     };
 
     return obj;
