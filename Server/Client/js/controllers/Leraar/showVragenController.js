@@ -21,6 +21,8 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
           ];
     
    var promiseAntwoorden; //promise for polling antwoorden
+    var promiseAantalAntwoorden;
+    $scope.aantalAntwoorden = 0;
     
     $scope.VolgendeVraag = function(){
         
@@ -28,6 +30,9 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
         Eerst vorige vraag deactiveren!
         */
         //Volgende vraag oproepen
+        lesService.StopInterval(promiseAantalAntwoorden);
+         $scope.aantalAntwoorden = 0;
+
         $scope.DeActivateVraag($scope.vraagNummer);
         
         if($scope.vraagNummer < $scope.aantalVragen)
@@ -35,12 +40,14 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
         else{
             alert("Dit was de laatste vraag!");
         }
-        
         GetVraag();   
         
     };
     
     $scope.VorigeVraag = function(){
+        lesService.StopInterval(promiseAantalAntwoorden);
+        $scope.aantalAntwoorden = 0;
+        
         $scope.DeActivateVraag($scope.vraagNummer);
         
         $scope.vraagNummer--;
@@ -50,6 +57,9 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     };
     
     $scope.DeActivateVraag =function(vraagnr){
+        lesService.StopInterval(promiseAantalAntwoorden);
+        $scope.aantalAntwoorden = 0;
+        
         var promise = lesService.MaakVraagOnBeschikbaar(commonService.ActiveLes.id,vraagnr);
         promise.then(function(data){
             console.log("heb vraag Inactief gemaakt");           
@@ -65,9 +75,12 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
             $scope.stelling = data.data.vraag[0].Stelling;
            
         });
+        
+         promiseAantalAntwoorden = lesService.ToonAantalAntwoorden(commonService.ActiveLes.id ,$scope.vraagNummer);
     };
     
     $scope.MaakVraagOnBeschikbaar= function(){
+        lesService.StopInterval(promiseAantalAntwoorden);
       var promise = lesService.MaakVraagOnBeschikbaar(commonService.ActiveLes.id,commonService.ActiveVraag.vraagnummer);
         promise.then(function(data){
             console.log("heb vraag onbeschikbaar gemaakt");
@@ -82,6 +95,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     */
     $scope.StopLes = function(){
          $scope.MaakVraagOnBeschikbaar();
+        lesService.StopInterval(promiseAantalAntwoorden);
          var promise = lesService.StopLes(commonService.ActiveLes.id);
         promise.then(function(data){
            
@@ -151,6 +165,9 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
                 
             }
         });
+        
+        
+       
     }
     
     $scope.GetAntwoorden = function(){
@@ -166,6 +183,12 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
      var getRandomSpan = function(){
          return Math.floor((Math.random()*10)+5);
        }
+     
+     $scope.$on("ToonAantalAntwoorden",function(event,data){
+         console.log(data);
+           $scope.aantalAntwoorden = data.antwoorden[0].aantal;
+         
+     });
     
     //GET ANTWOORDEN IN CONTROLLER KOMENDE VAN SERVICE
      $scope.$on('GetAntwoorden:', function(event,data) {
