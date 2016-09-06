@@ -13,7 +13,7 @@ var mysql      = require('mysql');
 
 var connection = mysql.createConnection({
    host     : 'localhost',
-   user     : 'root',
+   user     : '',
    password : '',
    database : 'digitaalleren'
  });
@@ -23,7 +23,7 @@ var connection = mysql.createConnection({
 
 var pool  = mysql.createPool({
   host     : 'localhost',
-  user     : 'root',
+  user     : '',
   password : '',
   database : 'digitaalleren'
 });
