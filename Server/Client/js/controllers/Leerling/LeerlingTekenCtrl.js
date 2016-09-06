@@ -76,15 +76,16 @@ lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagI
 };
     
     
+    
+    
     /* Stap5: Scope functions
     -------------------------
     */
 
     $scope.ClearCanvas = function () {
-        var tmp = $('#colors_sketch').sketch();//.prototype.clearPainting();
-        tmp.actions = [];
-        tmp.redraw();
+       
         
+         $('#colors_sketch').sketch({defaultColor: "#ff0"});
         console.log("cleared Canvas");        
     };
     

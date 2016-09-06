@@ -4,18 +4,18 @@ var mysql      = require('mysql');
 
 var connection = mysql.createConnection({
    host     : 'localhost',
-   user     : '',
+   user     : 'root',
    password : '',
-   database : ''
+   database : 'digitaalleren'
  });
  
  
 
 var pool  = mysql.createPool({
   host     : 'localhost',
-  user     : '',
+  user     : 'root',
   password : '',
-  database : ''
+  database : 'digitaalleren'
 });
 
 
