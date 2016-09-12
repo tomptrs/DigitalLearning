@@ -32,6 +32,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
         //Volgende vraag oproepen
         lesService.StopInterval(promiseAantalAntwoorden);
          $scope.aantalAntwoorden = 0;
+        $scope.antwoorden = [];
 
         $scope.DeActivateVraag($scope.vraagNummer);
         
@@ -47,6 +48,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     $scope.VorigeVraag = function(){
         lesService.StopInterval(promiseAantalAntwoorden);
         $scope.aantalAntwoorden = 0;
+        $scope.antwoorden=[];
         
         $scope.DeActivateVraag($scope.vraagNummer);
         
@@ -185,17 +187,15 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
        }
      
      $scope.$on("ToonAantalAntwoorden",function(event,data){
-         console.log(data);
+        
            $scope.aantalAntwoorden = data.antwoorden[0].aantal;
          
      });
-    
+    var aantal = 0;
     //GET ANTWOORDEN IN CONTROLLER KOMENDE VAN SERVICE
-     $scope.$on('GetAntwoorden:', function(event,data) {
-     
-          console.log(data);
-         console.log(currentType);
-         if(data != null){
+     $scope.$on('GetAntwoorden:', function(event,data) {     
+         
+         if(data != null){            
             
             $scope.antwoorden = data.antwoorden;
              

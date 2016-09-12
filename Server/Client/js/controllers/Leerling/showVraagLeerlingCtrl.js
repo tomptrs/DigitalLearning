@@ -40,7 +40,7 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
     };
     
     $scope.$on("error:",function(event,data){
-        console.log("IN ERROR");
+       // console.log("IN ERROR");
         
         vraagService.StopInterval(promise); //STOP INTERVAL
          $window.location.href = '/#/login';
@@ -48,8 +48,8 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
     
     $scope.$on('IsVraagBeschikbaar:', function(event,data) {
      
-        console.log("is vraag beschikbaar??tp");
-        console.log(data);
+      //  console.log("is vraag beschikbaar??tp");
+       // console.log(data);
         if(data != null){
             
            // console.log("vergelijk vraagnummers");
@@ -57,8 +57,8 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
            
             //nu werkt onbeschikbaar terug beschikbaar maken niet meer!!
             
-            console.log("CHECK VRAAGOBJECT");
-            console.log($scope.vraagObject);
+        //    console.log("CHECK VRAAGOBJECT");
+        //    console.log($scope.vraagObject);
             //if(vraagService.currentVraagId != data.VraagNummer)  //if lus is nodig anders wordt de watch altijd aangeroepen
             //{   
             //    console.log(data);
@@ -74,16 +74,16 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
                 
                 if(data.TypeId == 3) //multi vraag
                     {
-                        console.log("BIJVRAGEN");
-                        console.log(data);
+                     //   console.log("BIJVRAGEN");
+                    //    console.log(data);
                         
                         if(!hebbijvragen){
                         //GetBijvragen! 
                         var promiseExtra = vraagService.GetBijvragen(data.Id);
                         promiseExtra.then(function(data){
-                            console.log("Heb ik de bijvragen??")
+                          //  console.log("Heb ik de bijvragen??")
                             $scope.bijvragen = data.data.vraag;
-                            console.log(data.data.vraag);
+                         //   console.log(data.data.vraag);
                             
                             for(var i =0;i<$scope.bijvragen.length; i++)
                                 $scope.bijvragen[i].selectedStuff = false;
@@ -99,7 +99,7 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
         }
         else{
             hebbijvragen = false;
-           console.log("TODO: Waarom duurt het wat langer voor template[0] = wachten te tonen??")
+          // console.log("TODO: Waarom duurt het wat langer voor template[0] = wachten te tonen??")
             $scope.vraag = "";
             $scope.template = templates[0]; 
         }
@@ -107,20 +107,20 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
     
     $scope.$watch("vraag", function(waarde)
     {
-        console.log("WATCH");
-        console.log($scope.vraag)
-        console.log(waarde);
+     //   console.log("WATCH");
+     //   console.log($scope.vraag)
+     //   console.log(waarde);
        
         if($scope.vraag !=null){
             
-            console.log("ik zit in verschillend van null");
-            console.log($scope.vraag); // eerste maal krijg je een foutmelding..
+       //     console.log("ik zit in verschillend van null");
+        //    console.log($scope.vraag); // eerste maal krijg je een foutmelding..
        
     
             if($scope.vraagObject != null)
             {
             
-                console.log("En het type is: " + $scope.vraagObject.TypeId);
+            //    console.log("En het type is: " + $scope.vraagObject.TypeId);
         
                 if($scope.vraagObject.TypeId == 2){ //cloud
                     $scope.template = templates[2];            
@@ -155,7 +155,7 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
     
     $scope.StopInterval = function()
     {
-        console.log("stop");
+      //  console.log("stop");
         vraagService.StopInterval(promise);
     }
         

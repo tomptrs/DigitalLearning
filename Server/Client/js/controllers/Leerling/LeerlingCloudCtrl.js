@@ -9,11 +9,17 @@ app.controller('LeerlingCloudCtrl', function ($scope,vraagService) {
         
         //Klopt Vraag en Les???
         vraagService.VerstuurAntwoord(vraagService.currentLesId,vraagService.currentVraagId,$scope.antwoord);
+        $scope.verstuurd = true;
+    }
+    
+    $scope.dialogClose = function(){
+        $scope.verstuurd = true;
     }
     
     var init = function(){
-        console.log("Toon OPEN vraag");
+        console.log("INIT Cloud vraag");
         console.log("vraagService.currentVraagId");
+        $scope.verstuurd = false;
     }
         
     init();

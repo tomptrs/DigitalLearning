@@ -7,12 +7,35 @@
     <label>
       <input ng-model="bijvraag.selectedStuff"  ng-click="toggleSelection(bijvraag.Stelling)"  type="checkbox"> {{bijvraag.Stelling}}
     </label>
-    
-   
   </div>
   
- 
-<!-- <input type="button" ng-click="Verstuur()" class="btn btn-primary" value="Verzenden">
--->
+<!-- <select ng-options="bijvraag as bijvraag.name for bijvraag in bijvragen" 
+   ng-model="item" ng-change="update()"></select>
 
+-->
+    
+ <input type="button" ng-disabled="verstuurd" ng-click="Verstuur()" data-toggle="modal" data-target="#myModal" class="btn btn-primary" value="Verzenden">
+
+    
+    
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Multi antwoord</h4>
+      </div>
+      <div class="modal-body">
+        <p>Multi antwoord verstuurd</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="dialogClose()" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+    
 </div>

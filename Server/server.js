@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 
 var path = require('path');
 app.use(express.static(__dirname + '/Client')); 
-
+var port = process.env.PORT || 80;// set our port
 
 var gebruikers = require('./router/gebruikers.js');
 var vragen = require('./router/vragen.js');
@@ -60,4 +60,4 @@ app.get("/",function(req,res){
     res.sendFile(path.join(__dirname + '/Client/start.html'));
 });
 
-app.listen(3000);
+app.listen(port);

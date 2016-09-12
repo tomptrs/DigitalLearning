@@ -32,3 +32,11 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.vraagnr{
+    font-size:140%;
+}
+
+.vraagStelling{
+    font-size:140%;
+}

@@ -95,7 +95,7 @@ lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagI
     };
     
     var init = function(){
-        console.log("Toon Teken vraag");
+        console.log("INIT Teken vraag");
         console.log("vraagService.currentVraagId");
         
         

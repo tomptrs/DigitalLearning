@@ -8,11 +8,17 @@ app.controller('LeerlingOpenCtrl', function ($scope,vraagService) {
         console.log(vraagService.currentLesId + " " + vraagService.currentVraagId)
         //PROBLEEM: weet de huidige les en vraag niet!!
             vraagService.VerstuurAntwoord(vraagService.currentLesId,vraagService.currentVraagId,$scope.antwoord);
+       
+    }
+    
+    $scope.dialogClose = function(){
+        $scope.verstuurd = true;
     }
     
     var init = function(){
-        console.log("Toon OPEN vraag");
+        console.log("INIT OPEN vraag");
         console.log("vraagService.currentVraagId");
+        $scope.verstuurd = false;
     }
         
     init();

@@ -9,20 +9,23 @@ app.controller('LeerlingMultiCtrl', function ($scope,vraagService) {
         console.log(vraagService.currentLesId + " " + vraagService.currentVraagId)
        
             vraagService.VerstuurAntwoord(vraagService.currentLesId,vraagService.currentVraagId,$scope.antwoord);
-        alert("Antwoord verzonden");
+     //   alert("Antwoord verzonden");
     };
     
-    
+     $scope.dialogClose = function(){
+        $scope.verstuurd = true;
+    }
     
     var init = function(){
-        console.log("Toon Multi vraag");
+        console.log("INIT Multi vraag");
         console.log("vraagService.currentVraagId");
+         $scope.verstuurd = false;
     }
     
     
    $scope.toggleSelection = function(item){
       $scope.antwoord = item;
-       $scope.Verstuur();
+     
     };
         
     init();
