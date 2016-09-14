@@ -9,7 +9,7 @@ app.factory("vraagService",function($http,$interval,$rootScope){
         currentVraagId:"",
         
         StopInterval:function(interval){
-            console.log("STOP de interval");
+            console.log("STOP de interval TTTT");
             $interval.cancel(interval);
         },
         

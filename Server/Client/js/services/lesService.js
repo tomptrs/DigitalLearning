@@ -36,7 +36,7 @@ app.factory("lesService",function($http,$interval,$rootScope){
         },
         
         StopLes:function(lesId){
-            lesId
+           
              return $http.post("lessen/StopLes",{"lesId":lesId});
             
         },
@@ -59,8 +59,15 @@ app.factory("lesService",function($http,$interval,$rootScope){
         },
         
          StopInterval:function(interval){
-            
-            $interval.cancel(interval);
+            try {
+    $interval.cancel(interval);
+}
+catch(err) {
+   console.log("Interval stop ERROR");
+    console.log(err);
+}
+
+           
         },
         
         //Voeg nieuwe les toe en navigeer naar add vragen

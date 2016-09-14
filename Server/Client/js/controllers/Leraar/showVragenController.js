@@ -30,9 +30,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
         Eerst vorige vraag deactiveren!
         */
         //Volgende vraag oproepen
-        lesService.StopInterval(promiseAantalAntwoorden);
-         $scope.aantalAntwoorden = 0;
-        $scope.antwoorden = [];
+        GoToAnotherQuestion();
 
         $scope.DeActivateVraag($scope.vraagNummer);
         
@@ -46,9 +44,8 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     };
     
     $scope.VorigeVraag = function(){
-        lesService.StopInterval(promiseAantalAntwoorden);
-        $scope.aantalAntwoorden = 0;
-        $scope.antwoorden=[];
+        
+        GoToAnotherQuestion();
         
         $scope.DeActivateVraag($scope.vraagNummer);
         
@@ -59,8 +56,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     };
     
     $scope.DeActivateVraag =function(vraagnr){
-        lesService.StopInterval(promiseAantalAntwoorden);
-        $scope.aantalAntwoorden = 0;
+        //GoToAnotherQuestion();
         
         var promise = lesService.MaakVraagOnBeschikbaar(commonService.ActiveLes.id,vraagnr);
         promise.then(function(data){
@@ -82,7 +78,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     };
     
     $scope.MaakVraagOnBeschikbaar= function(){
-        lesService.StopInterval(promiseAantalAntwoorden);
+       GoToAnotherQuestion();
       var promise = lesService.MaakVraagOnBeschikbaar(commonService.ActiveLes.id,commonService.ActiveVraag.vraagnummer);
         promise.then(function(data){
             console.log("heb vraag onbeschikbaar gemaakt");
@@ -91,6 +87,12 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
         });
     };
     
+    function GoToAnotherQuestion(){
+         lesService.StopInterval(promiseAantalAntwoorden);
+        lesService.StopInterval(promiseAntwoorden);
+          $scope.antwoorden = [];
+        $scope.aantalAntwoorden = 0;
+    }
     
     /*
     Navigeer naar dashboard, maar vragen inactief en verwijder alle antwoorden
@@ -294,13 +296,13 @@ var myPieChart = new Chart(ctx).Pie( $scope.mul);
     */
      $scope.$on('error:', function(event,data) {
          console.log("error detected!");
-         vraagService.StopInterval(promiseAntwoorden);
+         lesService.StopInterval(promiseAntwoorden);
      });
     
     $scope.StopInterval = function()
     {
         console.log("stop");
-        vraagService.StopInterval(promiseAntwoorden);
+        lesService.StopInterval(promiseAntwoorden);
     }
     
     
