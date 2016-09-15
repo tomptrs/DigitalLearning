@@ -85,8 +85,13 @@ lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagI
     $scope.ClearCanvas = function () {
        
         
-         $('#colors_sketch').sketch({defaultColor: "#ff0"});
-        console.log("cleared Canvas");        
+         var canvas = document.getElementById('colors_sketch');
+        var ctx = canvas.getContext("2d");
+        ctx.clearRect(0,0,800,800);
+       // var sktch = $('#colors_sketch').sketch();  
+        sktch.sketch().actions = [];    
+        //ctx.sketch('actions',[]);
+        console.log("cleared Canvas");       
     };
     
     $scope.resize = function () {
@@ -94,6 +99,7 @@ lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagI
         tmp.size=$scope.size;
     };
     
+     var sktch;
     var init = function(){
         console.log("INIT Teken vraag");
         console.log("vraagService.currentVraagId");
@@ -101,7 +107,7 @@ lesService.BewaarAfbeelding(vraagService.currentLesId,vraagService.currentVraagI
         
          jQuery( document ).ready(function( $ ) {
              console.log("start sketch")
-            $('#colors_sketch').sketch();
+            sktch = $('#colors_sketch').sketch();
         });
     };
         

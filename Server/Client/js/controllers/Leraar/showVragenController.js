@@ -143,7 +143,8 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
              if(data.data.vraag[0].TypeId == 3){ //multi
                  console.log("een multi vraag");
                 $scope.template = templates[3]; 
-                 
+                  console.log("clear graph");
+                
                
                  
                  //ER LOOPT IETS MIS MET DE BIJVRAGEN!!
@@ -185,7 +186,7 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
     }
     
      var getRandomSpan = function(){
-         return Math.floor((Math.random()*10)+5);
+         return Math.floor((Math.random()*15)+5);
        }
      
      $scope.$on("ToonAantalAntwoorden",function(event,data){
@@ -218,7 +219,8 @@ app.controller('showVragenController', function ($scope,$interval,$window,lesSer
             } // end cloud antwoorden
             
              if(currentType == 3){ //Multiple choice antwoorden
-                 console.log("multiple choice antwoorden");
+                
+             /*    console.log("multiple choice antwoorden");
                 
                  $scope.mul =[];// [{waarde:"",aantal:0}];
                  //init array
@@ -268,7 +270,7 @@ var myPieChart = new Chart(ctx).Pie( $scope.mul);
                  
                  
                  
-             }
+         */    }
              
             if(currentType == 4){ //TEKEN ANTWOORDEN
                
