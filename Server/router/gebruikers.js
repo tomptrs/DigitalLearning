@@ -3,19 +3,13 @@ var router = express.Router();
 var mysql      = require('mysql');
 
 var connection = mysql.createConnection({
-   host     : 'localhost',
-   user     : 'root',
-   password : '',
-   database : 'digitaalleren'
+  
  });
  
  
 
 var pool  = mysql.createPool({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'digitaalleren'
+
 });
 
 
