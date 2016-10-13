@@ -12,20 +12,14 @@ var fse = require('fs-extra');
 var mysql      = require('mysql');
 
 var connection = mysql.createConnection({
-   host     : 'localhost',
-   user     : 'root',
-   password : '',
-   database : 'digitaalleren'
+  
  });
 
 
 
 
 var pool  = mysql.createPool({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'digitaalleren'
+ 
 });
 
 
