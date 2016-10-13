@@ -8,7 +8,7 @@ app.controller('LeerlingOpenCtrl', function ($scope,vraagService) {
         console.log(vraagService.currentLesId + " " + vraagService.currentVraagId)
         //PROBLEEM: weet de huidige les en vraag niet!!
             vraagService.VerstuurAntwoord(vraagService.currentLesId,vraagService.currentVraagId,$scope.antwoord);
-       
+        $scope.verstuurd = true;
     }
     
     $scope.dialogClose = function(){

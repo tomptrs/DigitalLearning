@@ -21,6 +21,7 @@ app.controller('beheerLesController', function ($scope,$interval,$window,lesServ
     
      $scope.logout = function(){
        
+        $window.location.reload();
        $window.location.href = '/#/login';
         
     };

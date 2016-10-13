@@ -55,7 +55,7 @@ app.factory("lesService",function($http,$interval,$rootScope){
                         
                  });
                  
-            },4000);
+            },3000);
         },
         
          StopInterval:function(interval){

@@ -47,6 +47,42 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function (req, res) {
     res.send('gebruikers');
 });
+
+router.get("/oefening",function(req,res){
+    
+var users = [
+    {
+        "nr":1,
+        "naam":"Courtois",
+        "voornaam":"Thibeau",
+        "club":"chelsea",
+        "positie":"keeper"
+    },
+    {
+        "nr":10,
+        "naam":"Hazard",
+        "voornaam":"Eden",
+        "club":"chelsea",
+        "positie":"aanvaller"
+    },
+    {
+        "nr":4,
+        "naam":"Kompany",
+        "voornaam":"Vincent",
+        "club":"Manchester City",
+        "positie":"verdediger"
+    },
+    {
+        "nr":3,
+        "naam":"Daems",
+        "voornaam":"Filip",
+        "club":"KVC Westerlo",
+        "positie":"verdediger"
+    }];
+    
+    return res.json(users);
+});
+
 // define the about route
 router.get('/about', function (req, res) {
     res.send('About gebruikers');

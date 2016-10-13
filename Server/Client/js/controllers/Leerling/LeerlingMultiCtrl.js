@@ -9,6 +9,7 @@ app.controller('LeerlingMultiCtrl', function ($scope,vraagService) {
         console.log(vraagService.currentLesId + " " + vraagService.currentVraagId)
        
             vraagService.VerstuurAntwoord(vraagService.currentLesId,vraagService.currentVraagId,$scope.antwoord);
+         $scope.verstuurd = true;
      //   alert("Antwoord verzonden");
     };
     

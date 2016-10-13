@@ -63,7 +63,7 @@ app.factory("vraagService",function($http,$interval,$rootScope){
                   
                  });
                  
-            },3000);
+            },1500);
         },
         
         CanNextVraag:false,

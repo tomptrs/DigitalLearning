@@ -34,8 +34,11 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
     
     $scope.logout = function(){
        //Stop Polling
-       
-       $window.location.href = '/#/login';
+       //Eerst Refresh doen!
+        
+       vraagService.StopInterval(promise);
+       $window.location.reload();
+        $window.location.href = '/#/login';
         
     };
     
@@ -43,6 +46,7 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
        // console.log("IN ERROR");
         
         vraagService.StopInterval(promise); //STOP INTERVAL
+         $window.location.reload();
          $window.location.href = '/#/login';
     });
     
@@ -62,7 +66,8 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
             //if(vraagService.currentVraagId != data.VraagNummer)  //if lus is nodig anders wordt de watch altijd aangeroepen
             //{   
             //    console.log(data);
-               
+               if($scope.vraagObject == null ||  data.Id != $scope.vraagObject.Id)
+                   {
             $scope.vraagObject = data;
             $scope.vraag = data.Stelling; //HIERDOOR KOM IK IN DE WATCH
              
@@ -94,7 +99,7 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
                         
                     }
                         
-                  //  }
+                    }
             
         }
         else{
@@ -117,8 +122,10 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
         //    console.log($scope.vraag); // eerste maal krijg je een foutmelding..
        
     
-            if($scope.vraagObject != null)
-            {
+           // if($scope.vraagObject != null)
+            // if($scope.vraagObject == null ||  data.Id != $scope.vraagObject.Id)
+              //  {
+            
             
             //    console.log("En het type is: " + $scope.vraagObject.TypeId);
         
@@ -141,12 +148,15 @@ app.controller('showVraagLeerlingCtrl', function ($scope,$interval,vraagService,
                 }
             //    console.log("de getoonde template= ");
             //    console.log($scope.template);
-            }
+         //   }
             
             
         }       //END != null
         else{
-             $scope.template = templates[0];
+            if($scope.vraagObject!= null)
+                $scope.vraagObject.Id = 99999;
+            $scope.template = templates[0]; 
+            $scope.vraag = "Wacht op volgende vraag";
         }
       
         
